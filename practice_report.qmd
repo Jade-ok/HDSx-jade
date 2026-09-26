@@ -36,8 +36,22 @@ hist(patients$age,
 
 ## Your turn
 
-- Add a sentence here describing what you notice in the chart.
-- Render again and check that both your sentence and the chart appear.
+```{r}
+summary(patients)
+```
 
-When you are happy with the result, **commit and sync** your work (the Week 2
-course page walks you through this), then submit your repository link on Canvas.
+
+```{r}
+# My added R code: show only patients with diabetes
+patients[patients$diabetes == "yes", ]
+```
+
+The histogram shows that most patients are between 40 and 70 years old, with only 1 patient over 70. 
+Based on the summary and the table of patients with diabetes that I added above, all 4 patients aged 60 or older in this 12-patient sample have diabetes.
+However, with only 12 patients, and synthetic data, this cannot be seen as a meaningful result.
+
+## My Notes
+
+- Quarto does **not** re-render automatically, so I need to render again after every edit.
+- With `embed-resources: true`, Quarto packs the chart, styles, and scripts into one HTML file, which is why my first commit added over 2,600 lines.
+- I used Claude (AI) to help me write the R code for the diabetes table and to double-check that my notes match the lecture, and I verified the table by comparing it with `data/patients.csv`.

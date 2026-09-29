@@ -38,8 +38,14 @@ health data.
    is your Assignment 1 starter.
 4. Save the file, open **View → Command Palette**, and run **Quarto: Render
    Document**. (If a **Render** button appears at the top-right of the editor,
-   it does the same thing.) An HTML preview with a chart should appear, with no
-   red error messages.
+   it does the same thing.) To see the result, open the **Ports** tab (next to
+   **Terminal**), click the globe icon on the **Rendered reports** row, and
+   click `practice_report.html` in the list that opens. It should show a chart
+   with no red error messages. Keep that browser tab open and reload it after
+   each render. Plots from **Run Cell** appear in a plot tab inside VS Code.
+   If there is no **Rendered reports** row, run `python3 -m http.server 8000`
+   in the terminal, leave it running, and use the row for port 8000.
+   <!-- 🤖 AI edit (Claude), 2026-09-29: how to view rendered output in this step. -->
 5. Make the Assignment 1 edits, render again, then commit both
    `practice_report.qmd` and `practice_report.html` and sync your work.
 

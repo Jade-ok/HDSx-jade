@@ -44,8 +44,9 @@ health data.
    with no red error messages. Keep that browser tab open and reload it after
    each render. Plots from **Run Cell** appear in a plot tab inside VS Code.
    If that tab is empty or shows an error, run
-   `pkill -f http.server; python3 -m http.server 8000` in the terminal, leave
-   it running, and reload the tab.
+   `pkill -f http.server; python3 -m http.server 8000 --bind 127.0.0.1` in the
+   terminal, leave it running, and reload the tab. Never click **Make Public**
+   on this port: anyone with the link could then browse your whole workspace.
    <!-- 🤖 AI edit (Claude), 2026-09-29: how to view rendered output in this step. -->
 5. Make the Assignment 1 edits, render again, then commit both
    `practice_report.qmd` and `practice_report.html` and sync your work.

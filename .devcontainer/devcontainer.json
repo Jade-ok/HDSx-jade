@@ -66,12 +66,14 @@
   // page is a file list, because Codespaces always opens a port's front page.
   // Runs each time VS Code connects, as a foreground server like typing it in a
   // terminal. (A detached postStartCommand server did not survive startup.)
+  // Bound to 127.0.0.1 so only Codespaces' own forwarding can reach it. It
+  // serves the whole workspace, .git included, so keep the port private.
   "forwardPorts": [8000],
   "portsAttributes": {
     "8000": { "label": "Rendered reports", "onAutoForward": "silent" }
   },
   "postAttachCommand": {
-    "reports": "python3 -m http.server 8000"
+    "reports": "python3 -m http.server 8000 --bind 127.0.0.1"
   },
 
   "hostRequirements": {

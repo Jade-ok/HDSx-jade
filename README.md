@@ -43,8 +43,9 @@ health data.
    click `practice_report.html` in the list that opens. It should show a chart
    with no red error messages. Keep that browser tab open and reload it after
    each render. Plots from **Run Cell** appear in a plot tab inside VS Code.
-   If there is no **Rendered reports** row, run `python3 -m http.server 8000`
-   in the terminal, leave it running, and use the row for port 8000.
+   If that tab is empty or shows an error, run
+   `pkill -f http.server; python3 -m http.server 8000` in the terminal, leave
+   it running, and reload the tab.
    <!-- 🤖 AI edit (Claude), 2026-09-29: how to view rendered output in this step. -->
 5. Make the Assignment 1 edits, render again, then commit both
    `practice_report.qmd` and `practice_report.html` and sync your work.

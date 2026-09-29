@@ -64,12 +64,15 @@
   // Serves the workspace so rendered HTML (and PDF) opens in a browser tab:
   // Ports tab -> "Rendered reports" -> globe icon -> click the file. The front
   // page is a file list, because Codespaces always opens a port's front page.
-  // Runs on every start, detached so it outlives this command.
+  // Runs each time VS Code connects, as a foreground server like typing it in a
+  // terminal. (A detached postStartCommand server did not survive startup.)
   "forwardPorts": [8000],
   "portsAttributes": {
     "8000": { "label": "Rendered reports", "onAutoForward": "silent" }
   },
-  "postStartCommand": "nohup setsid python3 -m http.server 8000 --bind 127.0.0.1 > /tmp/rendered-reports.log 2>&1 &",
+  "postAttachCommand": {
+    "reports": "python3 -m http.server 8000"
+  },
 
   "hostRequirements": {
     "cpus": 2,

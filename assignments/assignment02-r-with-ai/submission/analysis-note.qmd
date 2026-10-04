@@ -26,6 +26,20 @@ glimpse(nhanes)
 colSums(is.na(nhanes))
 ```
 
+- The dataset has 105,626 rows (people) and 18 columns (variables).
+
+- Seven columns have no missing values: Cycle, WeightMEC, Strata, PSU, Gender, Race, and Age (by colSums(is.na(nhanes))).
+
+- Education and Marital are missing for almost half of the people.
+so I will not simply drop these rows. If I use these columns,
+I will first analyze who is missing, keep the missing values as a separate group,
+and then decide how to handle them.
+
+- BMI, Height, PIR, and IncomeGroup are missing for fewer than 1 in 10 people.
+For these columns, I will skip missing values when calculating (na.rm = TRUE)
+and show the number of missing values and the number of people (n) in each group.
+
+
 ## Summarize
 
 Replace this example with your own summary if you choose a different question.

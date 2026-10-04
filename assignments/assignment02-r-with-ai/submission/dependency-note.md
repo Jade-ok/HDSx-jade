@@ -1,0 +1,5 @@
+# Dependency Note
+
+Packages used: tidyverse.
+
+No packages were added beyond the course Codespace baseline.

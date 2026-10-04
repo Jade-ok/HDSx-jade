@@ -1,6 +1,8 @@
 # AI-Use Note
 
 ## Audit trail
+
+```r
 # AI prompt: "Among adults 20+, mean BMI by Cycle with n and missing count, plus change from the first cycle"
 # Verified: column names match names(nhanes); n across cycles adds up to 58,462,
 #           which equals nhanes |> filter(Age >= 20) |> nrow(); na.rm = TRUE is used
@@ -15,6 +17,7 @@
 # AI prompt (GitHub Copilot Chat): "Explain what this function does, line by line. Keep it short."
 # Verified: compared each line of the explanation with the code, and checked it against
 #           the BMI output table (n, n_missing, mean_value)
+```
 
 ## What AI helped with
 I chose my question (did adult mean BMI increase across survey cycles?) and 

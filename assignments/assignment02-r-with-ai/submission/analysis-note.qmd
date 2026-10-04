@@ -1,5 +1,5 @@
 ---
-title: "Assignment 2 Starter Analysis"
+title: "Assignment 2 Adult BMI Across NHANES Survey Cycles"
 format: html
 ---
 
@@ -28,7 +28,7 @@ colSums(is.na(nhanes))
 
 - The dataset has 105,626 rows (people) and 18 columns (variables).
 
-- Seven columns have no missing values: Cycle, WeightMEC, Strata, PSU, Gender, Race, and Age (by colSums(is.na(nhanes))).
+- Seven columns have no missing values: Cycle, WeightMEC, Strata, PSU, Gender, Race, and Age (by 'colSums(is.na(nhanes))').
 
 - Education and Marital are missing for almost half of the people.
 so I will not simply drop these rows. If I use these columns,
@@ -42,33 +42,69 @@ and show the number of missing values and the number of people (n) in each group
 
 ## Summarize
 
-Replace this example with your own summary if you choose a different question.
+Among adults (age 20 and over), did mean BMI increase across survey cycles?
 
 ```{r}
+# AI prompt: "Among adults 20+, mean BMI by Cycle with n and missing count, plus change from the first cycle"
+# Verified: column names match names(nhanes); n across cycles adds up to 58,462,
+#           which equals nhanes |> filter(Age >= 20) |> nrow(); na.rm = TRUE is used
+
 bmi_summary <- nhanes |>
-  filter(!is.na(BMI), !is.na(IncomeGroup)) |>
-  group_by(IncomeGroup) |>
+  filter(Age >= 20) |>
+  group_by(Cycle) |>
   summarise(
     n = n(),
-    mean_bmi = mean(BMI),
+    n_missing_bmi = sum(is.na(BMI)),
+    mean_bmi = mean(BMI, na.rm = TRUE),
     .groups = "drop"
+  ) |>
+  mutate(
+    mean_bmi = round(mean_bmi, 1),
+    change_from_first = mean_bmi - first(mean_bmi)
   )
 
 bmi_summary
 ```
 
+Among adults, mean BMI rose from 28.4 in 1999-2000 to 29.8 in 2021-2023,
+an increase of about 1.4.
+The increase was not steady: mean BMI dipped slightly in 2001-2002 and 2011-2012,
+and it was highest in 2017-2018 (29.9).
+Few adults were missing BMI in each cycle, except 2001-2002, which had more missing values.
+There is no 2019-2020 cycle in this dataset, so the last gap is longer.
+These are unweighted sample means, so they describe this sample, not all U.S. adults.
+
 ## Function
 
 ```{r}
-mean_with_n <- function(x) {
-  tibble(
-    n = sum(!is.na(x)),
-    mean = mean(x, na.rm = TRUE)
-  )
+# AI prompt: "Turn my adult BMI-by-cycle summary into a function that works for any numeric column"
+# Verified: summarise_by_cycle(nhanes, "BMI") gives the same n, missing counts,
+#           and means as bmi_summary in the Summarize section
+
+summarise_by_cycle <- function(data, column_name) {
+  data |>
+    filter(Age >= 20) |>
+    group_by(Cycle) |>
+    summarise(
+      n = n(),
+      n_missing = sum(is.na(.data[[column_name]])),
+      mean_value = mean(.data[[column_name]], na.rm = TRUE),
+      .groups = "drop"
+    )
 }
 
-mean_with_n(nhanes$BMI)
+summarise_by_cycle(nhanes, "BMI")
+summarise_by_cycle(nhanes, "Waist")
+summarise_by_cycle(nhanes, "WHtR")
 ```
+
+I turned the Summarize code into a function, summarise_by_cycle(),
+so I can repeat the same adult-by-cycle summary for any numeric column.
+For BMI, it gives the same results as the table above.
+Waist and WHtR show the same pattern as BMI:
+mean waist rose from about 96.7 cm in 1999-2000 to about 101 cm in 2021-2023,
+and mean WHtR rose from 0.582 to 0.606.
+Waist and WHtR have more missing values than BMI in every cycle.
 
 ## Save Output
 

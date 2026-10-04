@@ -28,10 +28,10 @@ colSums(is.na(nhanes))
 
 - The dataset has 105,626 rows (people) and 18 columns (variables).
 
-- Seven columns have no missing values: Cycle, WeightMEC, Strata, PSU, Gender, Race, and Age (by 'colSums(is.na(nhanes))').
+- Seven columns have no missing values: Cycle, WeightMEC, Strata, PSU, Gender, Race, and Age (by `colSums(is.na(nhanes))`).
 
 - Education and Marital are missing for almost half of the people.
-so I will not simply drop these rows. If I use these columns,
+So I will not simply drop these rows. If I use these columns,
 I will first analyze who is missing, keep the missing values as a separate group,
 and then decide how to handle them.
 
@@ -48,6 +48,8 @@ Among adults (age 20 and over), did mean BMI increase across survey cycles?
 # AI prompt: "Among adults 20+, mean BMI by Cycle with n and missing count, plus change from the first cycle"
 # Verified: column names match names(nhanes); n across cycles adds up to 58,462,
 #           which equals nhanes |> filter(Age >= 20) |> nrow(); na.rm = TRUE is used
+# AI prompt: "summary_table.csv shows -0.1999999999999993. Fix it in the code, not the file"
+# Verified: after rounding, summary_table.csv shows -0.2, 0.4, ... and matches bmi_summary
 
 bmi_summary <- nhanes |>
   filter(Age >= 20) |>
@@ -59,15 +61,15 @@ bmi_summary <- nhanes |>
     .groups = "drop"
   ) |>
   mutate(
-    mean_bmi = round(mean_bmi, 1),
-    change_from_first = mean_bmi - first(mean_bmi)
+    change_from_first = round(mean_bmi - first(mean_bmi), 1),
+    mean_bmi = round(mean_bmi, 1)
   )
 
 bmi_summary
 ```
 
 Among adults, mean BMI rose from 28.4 in 1999-2000 to 29.8 in 2021-2023,
-an increase of about 1.4.
+an increase of about 1.5.
 The increase was not steady: mean BMI dipped slightly in 2001-2002 and 2011-2012,
 and it was highest in 2017-2018 (29.9).
 Few adults were missing BMI in each cycle, except 2001-2002, which had more missing values.
@@ -80,6 +82,9 @@ These are unweighted sample means, so they describe this sample, not all U.S. ad
 # AI prompt: "Turn my adult BMI-by-cycle summary into a function that works for any numeric column"
 # Verified: summarise_by_cycle(nhanes, "BMI") gives the same n, missing counts,
 #           and means as bmi_summary in the Summarize section
+# AI prompt (GitHub Copilot Chat): "Explain what this function does, line by line. Keep it short."
+# Verified: compared each line of the explanation with the code, and checked it against
+#           the BMI output table (n, n_missing, mean_value)
 
 summarise_by_cycle <- function(data, column_name) {
   data |>
@@ -104,7 +109,6 @@ For BMI, it gives the same results as the table above.
 Waist and WHtR show the same pattern as BMI:
 mean waist rose from about 96.7 cm in 1999-2000 to about 101 cm in 2021-2023,
 and mean WHtR rose from 0.582 to 0.606.
-Waist and WHtR have more missing values than BMI in every cycle.
 
 ## Save Output
 
@@ -113,6 +117,17 @@ dir.create("assignments/assignment02-r-with-ai/submission/output", recursive = T
 write_csv(bmi_summary, "assignments/assignment02-r-with-ai/submission/output/summary_table.csv")
 ```
 
+
 ## AI Audit Note
 
-Add comments explaining which parts were drafted or debugged with AI and how you verified the result.
+I used Claude and GitHub Copilot Chat to explain the assignment and code, and to draft code.
+I chose my own question, whether adult mean BMI increased across survey cycles,
+and asked Claude to design the code for it.
+I checked that the column names exist in names(nhanes) and that n across all cycles
+adds up to 58,462, the number of adults (Age >= 20).
+When the saved CSV showed long decimals such as -0.1999999999999993,
+Claude suggested rounding change_from_first, so I fixed the code instead of the CSV file.
+Claude then turned this code into the function summarise_by_cycle(),
+and I checked that it gives the same n, missing counts, and mean BMI as bmi_summary.
+Finally, I asked GitHub Copilot Chat to explain the function line by line
+and compared its explanation with the code and with the BMI output table.

@@ -18,6 +18,7 @@ tells you to.
 │   └── nhanes_equity_v6.rds
 ├── output/               <- Code-generated outputs
 ├── practice_report.qmd   <- Assignment 1 source at the repository root
+├── practice_report.html  <- Rendered Assignment 1 report (committed on purpose)
 ├── references.bib        <- Course bibliography entries used by later starters
 ├── _quarto.yml           <- Makes code execute from this project root
 └── .gitignore            <- Ignores temporary, private, and machine-specific files

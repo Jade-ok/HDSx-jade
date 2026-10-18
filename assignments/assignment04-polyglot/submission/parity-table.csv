@@ -1,0 +1,7 @@
+metric,r_value,python_value,match,notes
+raw_row_count,105626,105626,yes,nrow(nhanes) vs len(nhanes)
+raw_column_count,18,18,yes,ncol(nhanes) vs nhanes.shape[1]
+filtered_row_count,87647,87647,yes,Rows with non-missing BMI; IncomeGroup; and Gender
+number_of_groups,6,6,yes,3 income groups x 2 genders
+group_labels,6 IncomeGroup x Gender labels,same 6 labels in same order,yes,py_labels == r_labels returned True
+rounded_summary_values,n; mean_bmi; sd_bmi for 6 groups,same values,yes,All match after rounding to 2 decimals; py_values == r_values returned True. R tibble print shows 3 significant digits but stored values match

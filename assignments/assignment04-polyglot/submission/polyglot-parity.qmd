@@ -1,0 +1,70 @@
+---
+title: "Assignment 4: Polyglot Parity"
+author: "Jade Lee"
+---
+
+```{r}
+library(tidyverse)
+
+nhanes <- read_csv("examples/nhanes-equity/data/nhanes_equity_v6.csv")
+
+r_summary <- nhanes |>
+  filter(!is.na(BMI), !is.na(IncomeGroup), !is.na(Gender)) |>
+  group_by(IncomeGroup, Gender) |>
+  summarise(
+    n = n(),
+    mean_bmi = round(mean(BMI), 2),
+    sd_bmi = round(sd(BMI), 2),
+    .groups = "drop"
+  ) |>
+  arrange(IncomeGroup, Gender)
+
+r_summary
+```
+
+```{r}
+summarise_mean_sd <- function(data, value, group1, group2) {
+  data |>
+    filter(!is.na({{ value }}), !is.na({{ group1 }}), !is.na({{ group2 }})) |>
+    group_by({{ group1 }}, {{ group2 }}) |>
+    summarise(
+      n = n(),
+      mean_value = round(mean({{ value }}), 2),
+      sd_value = round(sd({{ value }}), 2),
+      .groups = "drop"
+    ) |>
+    arrange({{ group1 }}, {{ group2 }})
+}
+
+r_function_summary <- summarise_mean_sd(nhanes, BMI, IncomeGroup, Gender)
+as.data.frame(r_function_summary)
+```
+
+
+```{r}
+# Exercise: swap the value column (BMI -> Weight)
+as.data.frame(summarise_mean_sd(nhanes, Weight, IncomeGroup, Gender))
+
+# Exercise: swap a grouping column (IncomeGroup -> EducationClean)
+as.data.frame(summarise_mean_sd(nhanes, BMI, EducationClean, Gender))
+```
+
+
+```{r}
+# Parity checks (textbook Part D)
+nrow(nhanes)
+ncol(nhanes)
+nrow(filter(nhanes, !is.na(BMI), !is.na(IncomeGroup), !is.na(Gender)))
+nrow(r_summary)
+```
+
+
+## Parity Discussion
+
+The Python/pandas translation in `translation.ipynb` matches this R summary on every check: raw row count (105,626), raw column count (18), filtered row count (87,647), number of groups (6), group labels, and `n`, `mean_bmi`, and `sd_bmi` after rounding to 2 decimals. The full comparison is in `parity-table.csv`.
+
+## How to Render
+
+From the repository root, run:
+
+    quarto render assignments/assignment04-polyglot/submission/polyglot-parity.qmd

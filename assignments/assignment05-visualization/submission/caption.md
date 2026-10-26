@@ -1,0 +1,1 @@
+Mean BMI by gender across NHANES cycles, adults aged 20-80 in the prepared NHANES Health Equity class dataset. The summary is descriptive and unweighted, and records with missing BMI were excluded; there is no 2019-2020 cycle. The y-axis starts at 27 to show changes of about 1-2 BMI units, and the plot shows patterns, not causal effects or population estimates.

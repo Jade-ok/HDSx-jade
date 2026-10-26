@@ -70,7 +70,7 @@ My first draft had three problems:
 ```{r}
 #| fig-cap: "Mean BMI by gender across NHANES cycles, adults aged 20-80 in the prepared NHANES Health Equity class dataset. The summary is descriptive and unweighted. Records with missing BMI were excluded. There is no 2019-2020 cycle. The y-axis starts at 27, not 0, to show changes of about 1-2 BMI units; BMI cannot be 0, and a line chart compares positions, not bar lengths. The plot shows patterns, not causal effects or population estimates."
 
-# AI prompt: x-axis labels overlap and the lines look flat with the y-axis at 0. fix both without removing data
+# AI prompt: x-axis labels overlap and the lines look flat with the y-axis at 0. fix both
 # Verified: x-axis labels are readable after rotating; I compared the plot with y from 0 and from 27 and kept 27 because the ups and downs were visible; points match bmi_by_gender
 
 
@@ -111,6 +111,6 @@ I compared women and men because Gender has no missing values and both groups ar
 
 I applied the lessons from auditing the flawed plot to my own draft. I kept only adults aged 20-80, because the flawed plot said "adults" but included children as young as 2. I used all 11 cycles instead of two endpoints, so the reader sees the real ups and downs.
 
-In my draft, the y-axis started at 0 and the lines looked almost flat, so the changes across cycles were hard to see. Because BMI cannot be 0 and a line chart compares positions rather than bar lengths, I zoomed in to 27-31 instead. I used `coord_cartesian()`, which zooms without removing data, and I stated the axis choice in the caption. The flawed plot also zoomed in, but it hid that choice and paired it with causal wording.
+In my draft, the y-axis started at 0 and the lines looked almost flat, so the changes across cycles were hard to see. Because BMI cannot be 0 and a line chart compares positions rather than bar lengths, I zoomed in to 27-31 instead. I used `coord_cartesian()` to set the range, and I stated the axis choice in the caption. The flawed plot also zoomed in, but it hid that choice and paired it with causal wording.
 
 The title describes what is plotted without claiming a cause. The subtitle and caption state that the summary is unweighted and that 1,009 adults with missing BMI were excluded.

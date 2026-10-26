@@ -2326,7 +2326,7 @@ vertical-align: -.125em;
 <section id="corrected-plot" class="level2">
 <h2 class="anchored" data-anchor-id="corrected-plot">Corrected plot</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AI prompt: x-axis labels overlap and the lines look flat with the y-axis at 0. fix both without removing data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AI prompt: x-axis labels overlap and the lines look flat with the y-axis at 0. fix both</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Verified: x-axis labels are readable after rotating; I compared the plot with y from 0 and from 27 and kept 27 because the ups and downs were visible; points match bmi_by_gender</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2371,7 +2371,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="what-changed-and-why">What changed and why</h2>
 <p>I compared women and men because Gender has no missing values and both groups are large in every cycle, so the comparison adds no extra exclusions and has no small groups.</p>
 <p>I applied the lessons from auditing the flawed plot to my own draft. I kept only adults aged 20-80, because the flawed plot said “adults” but included children as young as 2. I used all 11 cycles instead of two endpoints, so the reader sees the real ups and downs.</p>
-<p>In my draft, the y-axis started at 0 and the lines looked almost flat, so the changes across cycles were hard to see. Because BMI cannot be 0 and a line chart compares positions rather than bar lengths, I zoomed in to 27-31 instead. I used <code>coord_cartesian()</code>, which zooms without removing data, and I stated the axis choice in the caption. The flawed plot also zoomed in, but it hid that choice and paired it with causal wording.</p>
+<p>In my draft, the y-axis started at 0 and the lines looked almost flat, so the changes across cycles were hard to see. Because BMI cannot be 0 and a line chart compares positions rather than bar lengths, I zoomed in to 27-31 instead. I used <code>coord_cartesian()</code> to set the range, and I stated the axis choice in the caption. The flawed plot also zoomed in, but it hid that choice and paired it with causal wording.</p>
 <p>The title describes what is plotted without claiming a cause. The subtitle and caption state that the summary is unweighted and that 1,009 adults with missing BMI were excluded.</p>
 </section>
 

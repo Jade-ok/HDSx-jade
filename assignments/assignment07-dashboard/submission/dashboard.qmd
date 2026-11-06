@@ -25,7 +25,7 @@ This starter shows how to turn the Week 7 descriptive summary into a dashboard-s
 
 Audience: a new health reporter who receives this dashboard as part of a press package and needs to decide which statements about income and BMI are safe to report.
 
-Question: among adults age 20-80, how does mean BMI vary across NHANES cycles for one selected income group?
+Question: for the income group I am writing about, how did mean BMI among adults aged 20-80 change across NHANES survey cycles in this classroom dataset, and how large was that change?
 
 ## Setup
 
@@ -120,7 +120,7 @@ For the selected income group, the table and figure describe the mean BMI patter
 
 ## Limitation
 
-This starter is unweighted and descriptive. It does not account for NHANES survey design, does not estimate national prevalence, and should not be used to make causal claims about income and BMI.
+This dashboard shows unweighted, descriptive mean BMI for adults aged 20-80 in a classroom NHANES dataset, so it does not represent all U.S. adults and cannot show that income causes changes in BMI. NHANES surveys different people in each cycle, so the line compares groups over time, not changes within the same people. Income group is based on self-reported family income, so some people may be placed in the wrong group.
 
 ## Testing
 

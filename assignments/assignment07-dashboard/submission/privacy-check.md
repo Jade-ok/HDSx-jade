@@ -1,0 +1,3 @@
+# Privacy Check
+
+The data come from the prepared NHANES Health Equity classroom dataset (`examples/nhanes-equity/data/nhanes_equity_v6.csv`) and are used for classroom learning only, not for population inference. The dashboard and `dashboard-preview.png` show only aggregated counts and mean BMI by cycle; the smallest group in the submitted view has 1,089 people, and the caption avoids causal and national claims. I did not share any row-level records with an external AI tool; I shared only the aggregated summary table and screenshots of the chart.

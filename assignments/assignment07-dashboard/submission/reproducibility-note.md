@@ -1,0 +1,3 @@
+# Reproducibility Note
+
+I rendered the dashboard in my GitHub Codespace from the repository root with `quarto render assignments/assignment07-dashboard/submission/dashboard.qmd`, and the steps and results match `testing-log.md`. The file reads the cached data from the relative path `examples/nhanes-equity/data/nhanes_equity_v6.csv` and uses only `tidyverse` and `knitr` from the course Codespace image, with no credentials or local-only files, so it should render the same way in a fresh Codespace. The repository (`Jade-ok/HDSx-jade`) is public, so others can clone it and reproduce the render directly.

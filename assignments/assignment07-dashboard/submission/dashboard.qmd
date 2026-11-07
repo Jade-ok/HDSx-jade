@@ -94,6 +94,8 @@ kable(dashboard_summary)
 
 ```{r}
 #| label: dashboard-plot
+# AI prompt: rewrite the plot caption in plain language for a new health reporter; keep unweighted, ages 20-80, exclusions, the missing 2019-2020 cycle, the y-axis not starting at zero, and non-causal framing
+# Verified: each claim matches the summary table and plot; still accurate after switching to "Middle Income"
 ggplot(dashboard_summary, aes(x = Cycle, y = mean_bmi, group = 1)) +
   geom_line(linewidth = 0.8, color = "#2f6f73") +
   geom_point(size = 2.4, color = "#2f6f73") +
@@ -103,11 +105,12 @@ ggplot(dashboard_summary, aes(x = Cycle, y = mean_bmi, group = 1)) +
     x = "NHANES cycle",
     y = "Mean BMI",
     caption = paste0(
-      "Mean BMI among adults aged 20-80 in a classroom NHANES dataset.\n",
-      "The data have not been adjusted to reflect the U.S. population, so the results do not represent all U.S. adults.\n",
-      "People with missing BMI, income group, or survey cycle data were excluded.\n",
-      "The 2019-2020 cycle is missing due to COVID-19 disruptions.\n",
-      "The y-axis does not start at zero, making small changes look larger. The chart shows patterns, not causes."
+      "Adults aged 20-80 in a classroom NHANES dataset.\n",
+      "Income group = family income relative to the U.S. poverty line; <1.3 means below 1.3 times the poverty line.\n",
+      "Results are unweighted and not adjusted to the U.S. population, so they do not represent all U.S. adults.\n",
+      "Missing BMI, income, or cycle data were excluded. The 2019-2020 cycle is missing because of COVID-19.\n",
+      "The y-axis does not start at zero, so small changes can look larger.\n",
+      "This shows patterns across survey cycles, not changes within the same people or causal effects."
     )
   ) +
   theme_minimal(base_size = 12) +
@@ -116,7 +119,7 @@ ggplot(dashboard_summary, aes(x = Cycle, y = mean_bmi, group = 1)) +
 
 ## Interpretation
 
-In the submitted Low Income (<1.3) view, mean BMI among adults aged 20-80 ranged from 28.6 to 30.4 across the 11 available NHANES cycles in this classroom dataset, a spread of under 2 BMI units. This describes the people surveyed in each cycle; it does not show that income causes differences in BMI or that the same people's BMI rose over time.
+In the submitted Low Income (<1.3) view, unweighted mean BMI among adults aged 20-80 ranged from 28.6 to 30.4 across the 11 available NHANES cycles in this classroom dataset, a spread of under 2 BMI units. This describes the people surveyed in each cycle; it does not show that income causes differences in BMI or that the same people's BMI rose over time.
 
 ## Limitation
 

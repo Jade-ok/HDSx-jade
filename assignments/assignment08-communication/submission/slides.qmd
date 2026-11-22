@@ -5,6 +5,8 @@ format:
   revealjs:
     slide-number: true
     embed-resources: true
+    # AI prompt: the text is crowded at the top, there is no space between the slide title and body, and the chart is too small with the text below it cut off; put the text beside the chart
+    # Verified: after rendering, content is centered, titles have space below, the chart is larger on the left with text on the right, and nothing is cut off
     center: true
     include-in-header:
       text: |

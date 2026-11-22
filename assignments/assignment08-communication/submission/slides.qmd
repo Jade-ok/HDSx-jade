@@ -16,11 +16,11 @@ bibliography: ../../../references.bib
 
 ## Question And Audience
 
-**Audience:** Members of the general public who see news about income and weight.
+**Audience:** Adults in the general public who see an online article or post saying that low income leads to weight gain.
 
-**Question:** In this classroom dataset, how did average BMI change for adults aged 20-80 with low family income?
+**Question:** Does this data show that low income leads to weight gain?
 
-**Why it matters:** People need to know what this data can and cannot say before they believe or share a claim.
+**Why it matters:** Before they believe or share it, they need to know what this data can and cannot show.
 
 ## Evidence {.smaller}
 
@@ -33,20 +33,22 @@ bibliography: ../../../references.bib
 ::: {.column width="38%"}
 Average BMI went from 28.8 in 1999-2000 to 30.4 in 2021-2023, a rise of under 2 units.
 
-Low family income means income below 1.3 times the U.S. poverty line.
+In the chart title, "(<1.3)" means the family earns less than 1.3 times the poverty line, the least income the U.S. government says a family needs for basic living.
+
+The chart's scale starts near 28.5, not 0, so the rise looks bigger than it is.
 :::
 
 ::::
 
 ## Takeaway
 
-**Main point:** In this classroom dataset, low-income adults had a slightly higher average BMI in recent years. This shows a pattern, not a cause.
+**Main point:** In this classroom dataset, low-income adults had a slightly higher average BMI in recent years. If you see a post saying low income causes weight gain, treat it with caution. This data cannot prove that.
 
 ## Limitation And Next Step
 
 **Limitation:** BMI does not fit every body. For example, athletes can have a high BMI from muscle, not poor health. The data describe only the people in this classroom dataset, not all Americans.
 
-**Next step:** Before sharing a claim about income and weight, check whether it compares income groups and uses data that represents all Americans.
+**Next step:** Compare other income groups to see how average BMI differs by income.
 
 **AI-use note:** AI suggested a slide order and plainer wording. I checked every number against my A7 summary table.
 

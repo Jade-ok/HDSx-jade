@@ -1,37 +1,53 @@
 ---
-title: "Three-Slide KT Story"
+title: "Four-Slide KT Story"
 author: "Jade Lee"
 format:
   revealjs:
     slide-number: true
     embed-resources: true
+    center: true
+    include-in-header:
+      text: |
+        <style>
+        .reveal .slides section h2 { margin-bottom: 1em; }
+        </style>
 bibliography: ../../../references.bib
 ---
 
 ## Question And Audience
 
-**Audience:** A new health reporter who received the NHANES BMI dashboard in a press package.
+**Audience:** Members of the general public who see news about income and weight.
 
-**Question:** In this classroom dataset, how did mean BMI change for low-income adults aged 20-80?
+**Question:** In this classroom dataset, how did average BMI change for adults aged 20-80 with low family income?
 
-**Why it matters:** The reporter needs to decide which sentences about income and BMI are safe to publish.
+**Why it matters:** People need to know what this data can and cannot say before they believe or share a claim.
 
-## Evidence
+## Evidence {.smaller}
 
-![](../../assignment07-dashboard/submission/dashboard-preview.png){width="65%" fig-alt="Line chart of mean BMI for low-income adults aged 20-80 across 11 NHANES cycles, from 28.8 in 1999-2000 to 30.4 in 2021-2023."}
+:::: {.columns}
 
-In the dashboard's Low Income (<1.3) view, mean BMI was 28.8 in 1999-2000 and 30.4 in 2021-2023, a change of under 2 units.
+::: {.column width="62%"}
+![Average BMI for low-income adults aged 20-80. Source: classroom snapshot of CDC/NCHS NHANES data [@cdc-nhanes].](../../assignment07-dashboard/submission/dashboard-preview.png){fig-alt="Line chart of average BMI for low-income adults aged 20-80 across 11 NHANES cycles, from 28.8 in 1999-2000 to 30.4 in 2021-2023."}
+:::
 
-Source note: CDC/NCHS NHANES public-use data are the source for the NHANES classroom example [@cdc-nhanes].
+::: {.column width="38%"}
+Average BMI went from 28.8 in 1999-2000 to 30.4 in 2021-2023, a rise of under 2 units.
+
+Low family income means income below 1.3 times the U.S. poverty line.
+:::
+
+::::
 
 ## Takeaway
 
-A safe sentence to report: "In one classroom NHANES dataset, low-income adults aged 20-80 had a slightly higher average BMI in recent survey cycles."
+**Main point:** In this classroom dataset, low-income adults had a slightly higher average BMI in recent years. This shows a pattern, not a cause.
 
 ## Limitation And Next Step
 
-**Limitation:** Results are unweighted, so they do not represent all U.S. adults. This view shows one income group, so it cannot show an income gap or that income causes higher BMI.
+**Limitation:** BMI does not fit every body. For example, athletes can have a high BMI from muscle, not poor health. The data describe only the people in this classroom dataset, not all Americans.
 
-**Next step:** Before writing about income gaps, switch the dashboard to Middle and High Income. Before writing about a national trend, ask an analyst for weighted estimates.
+**Next step:** Before sharing a claim about income and weight, check whether it compares income groups and uses data that represents all Americans.
 
-**AI-use note:** AI suggested a slide order and plainer wording. I checked every number and limitation against my A7 summary table and notes.
+**AI-use note:** AI suggested a slide order and plainer wording. I checked every number against my A7 summary table.
+
+## References

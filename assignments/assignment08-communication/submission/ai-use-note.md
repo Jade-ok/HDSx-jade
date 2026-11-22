@@ -11,7 +11,7 @@ I used Claude while working on this assignment.
 
 ## What AI Helped With and What I Changed
 
-- **Slide structure:** Claude drafted the slides. Its first draft renamed the starter's slide titles, so I kept the starter's slide titles and order and added only one Takeaway slide, since the starter had no place for a takeaway.
+- **Slide structure:** Claude drafted the slides. Its first draft renamed the starter's slide titles, and I changed them back. I kept the starter's three content slides and added the takeaway as one line on the Evidence slide.
 - **Audience and question:** Claude suggested keeping the A7 audience (a new health reporter). Based on the Week 9 lecture, I changed it to the general public and made the situation specific: adults who see an online article or post saying that low income leads to weight gain. I rewrote the question so it matches the claim that reader sees.
 - **Wording:** Claude drafted wording options. I rejected wording a general reader would not understand ("unweighted" on the slides, "1.3 times the poverty line" without an explanation) and wording that sounded generic. Following the lecture, I asked that each limitation use a concrete example, such as athletes having a high BMI from muscle.
 - **Layout:** After rendering, I found that the text sat too close to the slide titles and the chart was too small. I widened the space between titles and body text and made the chart larger by placing it beside the text. Claude wrote the code for these changes. Following the lecture, I avoided text smaller than `.smaller` and added a separate References slide.

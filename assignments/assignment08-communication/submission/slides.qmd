@@ -1,5 +1,6 @@
 ---
-title: "Four-Slide KT Story"
+title: "How Has BMI Changed Among Low-Income Adults?"
+subtitle: "Findings from a classroom NHANES dataset"
 author: "Jade Lee"
 format:
   revealjs:
@@ -12,6 +13,7 @@ format:
       text: |
         <style>
         .reveal .slides section h2 { margin-bottom: 1em; }
+        #title-slide .title { font-size: 1.6em; }
         </style>
 bibliography: ../../../references.bib
 ---
@@ -20,7 +22,7 @@ bibliography: ../../../references.bib
 
 **Audience:** Adults in the general public who see an online article or post saying that low income leads to weight gain.
 
-**Question:** Does this data show that low income leads to weight gain?
+**Question:** Does this chart show that low income leads to weight gain?
 
 **Why it matters:** Before they believe or share it, they need to know what this data can and cannot show.
 
@@ -29,29 +31,25 @@ bibliography: ../../../references.bib
 :::: {.columns}
 
 ::: {.column width="62%"}
-![Average BMI for low-income adults aged 20-80. Source: classroom snapshot of CDC/NCHS NHANES data [@cdc-nhanes].](../../assignment07-dashboard/submission/dashboard-preview.png){fig-alt="Line chart of average BMI for low-income adults aged 20-80 across 11 NHANES cycles, from 28.8 in 1999-2000 to 30.4 in 2021-2023."}
+![The vertical axis starts near 28.5, not 0, so small changes can look larger. Source: classroom snapshot of CDC/NCHS NHANES data [@cdc-nhanes].](../../assignment07-dashboard/submission/dashboard-preview.png){fig-alt="Line chart of average BMI for low-income adults aged 20-80 across 11 NHANES cycles, from 28.8 in 1999-2000 to 30.4 in 2021-2023."}
 :::
 
 ::: {.column width="38%"}
-Average BMI went from 28.8 in 1999-2000 to 30.4 in 2021-2023, a rise of under 2 units.
+BMI is a measure based on height and weight. Average BMI was 28.8 in 1999-2000 and 30.4 in 2021-2023.
 
-In the chart title, "(<1.3)" means the family earns less than 1.3 times the poverty line, the least income the U.S. government says a family needs for basic living.
-
-The chart's scale starts near 28.5, not 0, so the rise looks bigger than it is.
+**Takeaway:** Average BMI rose by 1.6 points among low-income adults in this dataset, but the chart can't tell us whether low income caused that rise.
 :::
 
 ::::
 
-## Takeaway
+## Limitation And Next Step  {.smaller}
 
-**Main point:** In this classroom dataset, low-income adults had a slightly higher average BMI in recent years. If you see a post saying low income causes weight gain, treat it with caution. This data cannot prove that.
+**Limitation:** This chart shows only one income group, so it has nothing to compare against. The people surveyed in different years may also have differed in other ways, such as age or diet, which could help explain the rise. The chart alone can't tell us what caused it.
 
-## Limitation And Next Step
+The data describe only the people in this classroom dataset, not all Americans. BMI also does not fit every body. For example, athletes can have a high BMI from muscle, not poor health.
 
-**Limitation:** BMI does not fit every body. For example, athletes can have a high BMI from muscle, not poor health. The data describe only the people in this classroom dataset, not all Americans.
+**Next step:** Before sharing a post that says low income causes weight gain, check which income groups the chart includes and what it measures.
 
-**Next step:** Compare other income groups to see how average BMI differs by income.
-
-**AI-use note:** AI suggested a slide order and plainer wording. I checked every number against my A7 summary table.
+**AI-use note:** AI drafted wording and layout code. I checked every number against my A7 summary table.
 
 ## References

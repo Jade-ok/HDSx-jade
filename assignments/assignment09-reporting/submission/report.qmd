@@ -1,0 +1,182 @@
+---
+title: "Mean BMI by Income Group, 2021-2023"
+subtitle: "A practice report using the NHANES classroom dataset"
+author: "Jade Lee"
+date: today
+format:
+  html:
+    embed-resources: true
+bibliography: references.bib
+execute:
+  echo: true
+---
+
+## Purpose
+
+This is a practice report. It uses the prepared NHANES classroom dataset, not my group project data. My Assignment 7 dashboard followed one income group over time. This report adds what the dashboard could not show: a comparison of all three income groups at one time point.
+
+## Audience
+
+A program manager at a community health organization who is deciding which income groups to include in a healthy-weight outreach program.
+
+## Question
+
+In the 2021-2023 NHANES cycle of this classroom dataset, how does mean BMI compare across low, middle, and high income groups among adults aged 20-80?
+
+## Data Source
+
+The report uses the cached CSV snapshot at `examples/nhanes-equity/data/nhanes_equity_v6.csv`. It is a prepared classroom dataset derived from CDC/NCHS NHANES public-use files [@cdc-nhanes].
+
+Income group is based on the family income-to-poverty ratio, which compares a family's income with the U.S. poverty line. Low Income is below 1.3 times the poverty line, Middle Income is 1.3 to below 3.5, and High Income is 3.5 or above.
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+library(tidyverse)  # AI-EDIT(2026-06-23): tidyverse-default — consolidated core library() calls into library(tidyverse)
+library(knitr)
+
+candidate_paths <- c(
+  "examples/nhanes-equity/data/nhanes_equity_v6.csv",
+  "../../examples/nhanes-equity/data/nhanes_equity_v6.csv"
+)
+
+data_path <- candidate_paths[file.exists(candidate_paths)][1]
+if (is.na(data_path)) {
+  stop("Could not find examples/nhanes-equity/data/nhanes_equity_v6.csv")
+}
+
+nhanes <- read_csv(data_path, show_col_types = FALSE)
+```
+
+## Methods
+
+I kept adults aged 20-80 in the 2021-2023 cycle, the most recent cycle in the dataset. I then excluded people with a missing BMI or income group and summarized BMI by income group. The summaries are unweighted and descriptive. They should not be read as causal effects or as estimates for all U.S. adults.
+
+```{r}
+#| label: tbl-missing
+#| tbl-cap: "Missing values for the two key variables among adults aged 20-80 in the 2021-2023 cycle."
+# AI prompt: keep only adults aged 20-80 in the 2021-2023 cycle, and show how many people are missing BMI or income group as a count and a percent
+# Verified: a separate count() of missing IncomeGroup in the R console gave the same 792 (and 5272 non-missing, 6064 total) as the table
+analysis_df <- nhanes |>
+  filter(Age >= 20, Age <= 80, Cycle == "2021-2023")
+
+n_total <- nrow(analysis_df)
+missing_bmi <- sum(is.na(analysis_df$BMI))
+missing_income <- sum(is.na(analysis_df$IncomeGroup))
+
+missingness <- tibble(
+  Variable = c("BMI", "Income group"),
+  `Missing (n)` = c(missing_bmi, missing_income),
+  `Missing (%)` = round(100 * c(missing_bmi, missing_income) / n_total, 1)
+)
+
+kable(missingness)
+```
+
+Of the `r n_total` adults aged 20-80 in this cycle, `r missing_income` (`r round(100 * missing_income / n_total, 1)`%) had no income group and `r missing_bmi` had no BMI (@tbl-missing). They were left out of the comparison below.
+
+## Results
+
+```{r}
+#| label: tbl-bmi-income
+#| tbl-cap: "BMI by income group among adults aged 20-80 in the 2021-2023 cycle. Unweighted, descriptive summary."
+# AI prompt: order the income groups from low to high, use plain column names, and save each group's mean BMI so the text can use it
+income_levels <- c("Low Income (<1.3)", "Middle Income", "High Income (>3.5)")
+
+income_summary <- analysis_df |>
+  filter(!is.na(BMI), !is.na(IncomeGroup)) |>
+  mutate(IncomeGroup = factor(IncomeGroup, levels = income_levels)) |>
+  group_by(IncomeGroup) |>
+  summarise(
+    n = n(),
+    mean_bmi = mean(BMI),
+    sd_bmi = sd(BMI),
+    .groups = "drop"
+  )
+
+low_bmi <- income_summary |> filter(IncomeGroup == "Low Income (<1.3)") |> pull(mean_bmi)
+mid_bmi <- income_summary |> filter(IncomeGroup == "Middle Income") |> pull(mean_bmi)
+high_bmi <- income_summary |> filter(IncomeGroup == "High Income (>3.5)") |> pull(mean_bmi)
+
+income_summary |>
+  mutate(`BMI, mean (SD)` = sprintf("%.1f (%.1f)", mean_bmi, sd_bmi)) |>
+  select(`Income group` = IncomeGroup, n, `BMI, mean (SD)`) |>
+  kable()
+```
+
+```{r}
+#| label: fig-bmi-income
+#| fig-cap: "Mean BMI by income group among adults aged 20-80 in the 2021-2023 cycle of the NHANES classroom dataset. The y-axis starts at 0. Values are unweighted and descriptive, so they do not represent all U.S. adults."
+ggplot(income_summary, aes(x = IncomeGroup, y = mean_bmi)) +
+  geom_col(fill = "#2C7FB8") +
+  geom_text(aes(label = sprintf("%.1f", mean_bmi)), vjust = -0.4, size = 3.5) +
+  labs(
+    title = "Mean BMI by income group, 2021-2023",
+    subtitle = "Adults aged 20-80; unweighted descriptive summary",
+    x = "Income group",
+    y = "Mean BMI"
+  ) +
+  expand_limits(y = 0) +
+  theme_minimal(base_size = 12)
+```
+
+Mean BMI was `r round(low_bmi, 1)` in the low income group and `r round(mid_bmi, 1)` in the middle income group, which is almost the same. It was `r round(high_bmi, 1)` in the high income group, about 1 point lower (@tbl-bmi-income, @fig-bmi-income). The standard deviations were about 7 to 8 points, so BMI varied much more between people within each group than between the group averages.
+
+For the program manager, this means that in this dataset, the low and middle income groups had a similar average BMI. Limiting a program to the low income group would leave out a group with almost the same average. These results describe who had a higher average BMI. They do not show that income causes a higher BMI or which group would benefit most from a program.
+
+## Limitations
+
+- This is a practice report that uses a prepared classroom dataset, not raw NHANES files.
+- The summaries are unweighted, so they do not represent all U.S. adults.
+- The comparison is descriptive. The income groups may also differ in other ways, such as age, so it does not show that income causes differences in BMI.
+- `r missing_income` adults (`r round(100 * missing_income / n_total, 1)`%) had no income group and were excluded. If they differ from the others, the comparison could change.
+- The report looks at one survey cycle only, so it does not show change over time. My Assignment 7 dashboard covers that.
+- BMI does not tell fat apart from muscle or bone, so a high BMI does not always mean excess body fat [@cdc-bmi].
+
+## Plain-Language Summary
+
+In this classroom dataset, adults in the 2021-2023 survey with low or middle family income had almost the same average BMI, about 30. Adults with high family income had an average BMI about 1 point lower. BMI varied a lot from person to person within every income group. These numbers describe the people in this dataset only, and they do not show that income causes a higher or lower BMI.
+
+## Technical Appendix
+
+**Why one cycle.** I used only the 2021-2023 cycle because it is the most recent one. Pooling all cycles would mix in the rise in BMI over time that my Assignment 7 dashboard showed.
+
+**Sensitivity check.** To see if the result depends on that choice, I repeated the summary with all 11 cycles pooled (@tbl-sensitivity).
+
+```{r}
+#| label: tbl-sensitivity
+#| tbl-cap: "Sensitivity check: mean BMI by income group with all 11 cycles pooled, adults aged 20-80. Unweighted."
+# AI prompt: repeat the BMI by income group summary using all cycles instead of only 2021-2023
+nhanes |>
+  filter(Age >= 20, Age <= 80, !is.na(BMI), !is.na(IncomeGroup)) |>
+  mutate(IncomeGroup = factor(IncomeGroup, levels = income_levels)) |>
+  group_by(IncomeGroup) |>
+  summarise(n = n(), mean_bmi = round(mean(BMI), 1), .groups = "drop") |>
+  select(`Income group` = IncomeGroup, n, `Mean BMI` = mean_bmi) |>
+  kable()
+```
+
+The order is the same as in the 2021-2023 cycle: low and middle income are close, and high income is lower.
+
+**Income group cut points.** I checked the poverty ratio range in each group (@tbl-pir). The label "High Income (>3.5)" also includes people with a ratio of exactly 3.5.
+
+```{r}
+#| label: tbl-pir
+#| tbl-cap: "Range of the family income-to-poverty ratio (PIR) in each income group, adults aged 20-80 in the 2021-2023 cycle."
+analysis_df |>
+  filter(!is.na(IncomeGroup)) |>
+  mutate(IncomeGroup = factor(IncomeGroup, levels = income_levels)) |>
+  group_by(IncomeGroup) |>
+  summarise(`Lowest PIR` = min(PIR), `Highest PIR` = max(PIR), .groups = "drop") |>
+  rename(`Income group` = IncomeGroup) |>
+  kable()
+```
+
+**Weights.** The dataset includes survey weight and design variables (`WeightMEC`, `Strata`, `PSU`), but this report does not use them. Survey-weighted estimates could differ from these unweighted means.
+
+## AI-Use Note
+
+AI use is documented in `ai-use-note.md` and in the `# AI prompt:` comments in the code chunks.
+
+## References
